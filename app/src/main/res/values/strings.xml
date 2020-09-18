@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Blood Finder</string>
+    <string name="emailHint">Email Address</string>
+    <string name="passwordHint">Password</string>
+    <string name="login">Login</string>
+    <string name="forget_password">FORGET PASSWORD?</string>
+    <string name="login_with_gmail">Login with gmail</string>
+    <string name="or">OR</string>
+    <string name="register_now">Not User? Register Now</string>
+    <string name="blood_finder">Blood Finder</string>
+    <string name="username">Username</string>
+    <string name="age_hint">Age</string>
+    <string name="re_password">Type password again</string>
+    <string name="register">Register</string>
+    <string name="into_login">Already Have An Account? Login</string>
+    <string-array name="bloodGroupItem">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+</resources>
