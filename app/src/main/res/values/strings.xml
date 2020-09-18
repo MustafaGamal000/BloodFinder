@@ -13,6 +13,7 @@
     <string name="re_password">Type password again</string>
     <string name="register">Register</string>
     <string name="into_login">Already Have An Account? Login</string>
+    <string name="phone_number">Phone Number</string>
     <string-array name="bloodGroupItem">
         <item>A+</item>
         <item>A-</item>
