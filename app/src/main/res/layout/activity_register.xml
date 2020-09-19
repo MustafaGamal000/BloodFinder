@@ -39,7 +39,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:orientation="vertical"
         android:padding="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -71,7 +70,7 @@
             android:drawablePadding="8sp"
             android:hint="@string/emailHint"
             android:inputType="textEmailAddress"
-            android:padding="16dp"
+            android:padding="12dp"
             android:textSize="16sp" />
 
         <EditText
