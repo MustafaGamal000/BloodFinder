@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".RegisterPage"
-            android:parentActivityName=".LoginPage"
+            android:name=".activities.RegisterPage"
+            android:parentActivityName=".activities.LoginPage"
             android:theme="@style/AppTheme.SliderActivityTheme"></activity>
-        <activity android:name=".LoginPage">
+        <activity android:name=".activities.LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
