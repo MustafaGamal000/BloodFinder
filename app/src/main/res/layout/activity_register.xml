@@ -71,7 +71,19 @@
             android:inputType="textEmailAddress"
             android:padding="16dp"
             android:textSize="16sp" />
-
+        <EditText
+            android:id="@+id/mobile_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/round_border"
+            android:drawableStart="@drawable/ic_phone"
+            android:drawableLeft="@drawable/ic_phone"
+            android:drawablePadding="8sp"
+            android:hint="@string/phone_number"
+            android:inputType="text"
+            android:padding="16dp"
+            android:textSize="16sp" />
 
         <Spinner
             android:id="@+id/blood_group_spinner"
