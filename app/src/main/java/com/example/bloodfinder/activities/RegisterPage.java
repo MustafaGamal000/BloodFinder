@@ -117,7 +117,7 @@ public class RegisterPage extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(RegisterPage.this, "User registered successfully", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
-                    startActivity(new Intent(RegisterPage.this, LoginPage.class));
+                    startActivity(new Intent(RegisterPage.this, LoginPage.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     finish();
                 } else {
                     Toast.makeText(RegisterPage.this, "Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
