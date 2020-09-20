@@ -1,37 +1,37 @@
 package com.example.bloodfinder.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.example.bloodfinder.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterPage extends AppCompatActivity {
     private SlidrInterface slidrInterface;
     private TextView intoLoginPage_tv;
-    private EditText username_et, email_et, phone_et, password_et, rePassword;
-    private Spinner bloodGroup;
+    private EditText username_et, email_et, phone_et, password_et, rePassword_et;
+    private Spinner bloodGroup_spinner;
     private Button register_btn;
-
+    private FirebaseAuth auth;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +39,27 @@ public class RegisterPage extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         slidrInterface = Slidr.attach(this);
+        auth = FirebaseAuth.getInstance();
 
         username_et = findViewById(R.id.username_et);
         email_et = findViewById(R.id.email_et);
         phone_et = findViewById(R.id.mobile_et);
         password_et = findViewById(R.id.password_et);
-        rePassword = findViewById(R.id.re_password_et);
-        bloodGroup = findViewById(R.id.blood_group_spinner);
+        rePassword_et = findViewById(R.id.re_password_et);
+        bloodGroup_spinner = findViewById(R.id.blood_group_spinner);
         register_btn = findViewById(R.id.register_btn);
 
 
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                progressDialog = new ProgressDialog(RegisterPage.this);
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progress_dialog);
+                progressDialog.getWindow().setBackgroundDrawableResource(
+                        android.R.color.transparent
+                );
+                creatUser();
             }
         });
 
@@ -72,38 +79,51 @@ public class RegisterPage extends AppCompatActivity {
         finish();
     }
 
-    private void registerNewAccount(final String username, final String email, final String phoneNumber, final String bloodGroup, final String password) {
-        final ProgressDialog progressDialog = new ProgressDialog(RegisterPage.this);
-        progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(false);
-        progressDialog.setTitle("Registering New Account...!");
-        progressDialog.show();
-        String url = "http://10.0.2.2/loginregister/register.php";
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if (response.equals("Successfully Registered")) ;
-                progressDialog.dismiss();
-                Toast.makeText(RegisterPage.this, "New User Is Registered DCccessfully", Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(RegisterPage.this, error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> param = new HashMap<>();
-                param.put("username", username);
-                param.put("email", email);
-                param.put("password", password);
-                param.put("phoneNumber", phoneNumber);
-                param.put("bloodGroup", bloodGroup);
-                return param;
+    private void creatUser() {
+        String username = username_et.getText().toString();
+        String email = email_et.getText().toString();
+        String phone = phone_et.getText().toString();
+        String password = password_et.getText().toString();
+        String rePassword = rePassword_et.getText().toString();
+        final String bloodGroup = bloodGroup_spinner.getSelectedItem().toString();
+        if (TextUtils.isEmpty(username)) {
+            username_et.setError("username is required");
+            return;
+        }
+        if (TextUtils.isEmpty(email)) {
+            email_et.setError("email is required");
+            return;
+        }
+        if (TextUtils.isEmpty(phone)) {
+            phone_et.setError("phone is required");
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            password_et.setError("password is required");
+            return;
+        }
+        if (TextUtils.isEmpty(rePassword)) {
+            rePassword_et.setError("Enter password again");
+            return;
+        }
+        if (!TextUtils.equals(password, rePassword)) {
+            Toast.makeText(RegisterPage.this, "Password is not matching", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(RegisterPage.this, "User registered successfully", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                    startActivity(new Intent(RegisterPage.this, LoginPage.class));
+                    finish();
+                } else {
+                    Toast.makeText(RegisterPage.this, "Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
-        };
+        });
     }
+
 }
