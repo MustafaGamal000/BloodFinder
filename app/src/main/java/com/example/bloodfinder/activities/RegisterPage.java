@@ -16,11 +16,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bloodfinder.ModelClasses.UserModel;
 import com.example.bloodfinder.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 
@@ -32,7 +35,8 @@ public class RegisterPage extends AppCompatActivity {
     private Button register_btn;
     private FirebaseAuth auth;
     private ProgressDialog progressDialog;
-
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+    private UserModel userModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +57,6 @@ public class RegisterPage extends AppCompatActivity {
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog = new ProgressDialog(RegisterPage.this);
-                progressDialog.show();
-                progressDialog.setContentView(R.layout.progress_dialog);
-                progressDialog.getWindow().setBackgroundDrawableResource(
-                        android.R.color.transparent
-                );
                 creatUser();
             }
         });
@@ -80,10 +78,10 @@ public class RegisterPage extends AppCompatActivity {
     }
 
     private void creatUser() {
-        String username = username_et.getText().toString();
-        String email = email_et.getText().toString();
+        final String username = username_et.getText().toString();
+        final String email = email_et.getText().toString();
         String phone = phone_et.getText().toString();
-        String password = password_et.getText().toString();
+        final String password = password_et.getText().toString();
         String rePassword = rePassword_et.getText().toString();
         final String bloodGroup = bloodGroup_spinner.getSelectedItem().toString();
         if (TextUtils.isEmpty(username)) {
@@ -110,6 +108,12 @@ public class RegisterPage extends AppCompatActivity {
             Toast.makeText(RegisterPage.this, "Password is not matching", Toast.LENGTH_SHORT).show();
             return;
         }
+        progressDialog = new ProgressDialog(RegisterPage.this);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(
+                android.R.color.transparent
+        );
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -117,13 +121,21 @@ public class RegisterPage extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(RegisterPage.this, "User registered successfully", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
+                    userModel=new UserModel(username, email, password, bloodGroup);
+                    String uid= task.getResult().getUser().getUid();
+                    saveDataInRealtimeDB(userModel, uid);
                     startActivity(new Intent(RegisterPage.this, LoginPage.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     finish();
                 } else {
+                    progressDialog.dismiss();
                     Toast.makeText(RegisterPage.this, "Error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void saveDataInRealtimeDB(UserModel userModel, String uid) {
+        reference.child("Users").child(uid).setValue(userModel);
     }
 
 }
