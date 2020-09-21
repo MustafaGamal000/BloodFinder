@@ -67,7 +67,7 @@
             android:background="@drawable/round_border"
             android:drawableStart="@drawable/ic_email"
             android:drawableLeft="@drawable/ic_email"
-            android:drawablePadding="8sp"
+            android:drawablePadding="8dp"
             android:hint="@string/emailHint"
             android:inputType="textEmailAddress"
             android:padding="12dp"
@@ -87,16 +87,6 @@
             android:padding="12dp"
             android:textSize="16sp" />
 
-        <Spinner
-            android:id="@+id/blood_group_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/round_border"
-            android:entries="@array/bloodGroupItem"
-            android:padding="12dp"
-            />
-
         <EditText
             android:id="@+id/password_et"
             android:layout_width="match_parent"
@@ -111,19 +101,24 @@
             android:padding="12dp"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/re_password_et"
+        <Spinner
+            android:id="@+id/cities_spinner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@drawable/round_border"
-            android:drawableStart="@drawable/ic_lock"
-            android:drawableLeft="@drawable/ic_lock"
-            android:drawablePadding="8sp"
-            android:hint="@string/re_password"
-            android:inputType="textPassword"
+            android:entries="@array/cities"
             android:padding="12dp"
-            android:textSize="16sp" />
+            />
+        <Spinner
+            android:id="@+id/blood_group_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/round_border"
+            android:entries="@array/bloodGroupItem"
+            android:padding="12dp"
+            />
 
         <Button
             android:id="@+id/register_btn"

@@ -1,19 +1,31 @@
 package com.example.bloodfinder.ModelClasses;
 
 public class UserModel {
+    private String uid;
     private String username;
     private String email;
     private String phone;
     private String bloodGroup;
+    private String address;
 
     public UserModel() {
     }
 
-    public UserModel(String username, String email, String phone, String bloodGroup) {
+    public UserModel(String uid, String username, String email, String phone, String bloodGroup, String address) {
+        this.uid = uid;
         this.username = username;
         this.email = email;
         this.phone = phone;
         this.bloodGroup = bloodGroup;
+        this.address = address;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getUsername() {
@@ -46,5 +58,13 @@ public class UserModel {
 
     public void setBloodGroup(String bloodGroup) {
         this.bloodGroup = bloodGroup;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

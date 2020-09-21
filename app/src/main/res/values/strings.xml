@@ -5,15 +5,21 @@
     <string name="login">Login</string>
     <string name="forget_password">FORGET PASSWORD?</string>
     <string name="login_with_gmail">Login with gmail</string>
-    <string name="or">OR</string>
+    <string name="or_txt">OR</string>
     <string name="register_now">Not User? Register Now</string>
     <string name="blood_finder">Blood Finder</string>
     <string name="username">Username</string>
     <string name="age_hint">Age</string>
-    <string name="re_password">Type password again</string>
+    <string name="address">Address</string>
     <string name="register">Register</string>
     <string name="into_login">Already Have An Account? Login</string>
     <string name="phone_number">Phone Number</string>
+    <string name="search_for_blood_donor">Search For Blood Donor</string>
+    <string name="search">Search</string>
+    <string name="OR">OR</string>
+    <string name="logout">Logout</string>
+    <string name="name">Name</string>
+    <string name="blood_group">Blood Group</string>
     <string-array name="bloodGroupItem">
         <item>A+</item>
         <item>A-</item>
@@ -23,5 +29,16 @@
         <item>AB-</item>
         <item>O+</item>
         <item>O-</item>
+    </string-array>
+    <string-array name="cities">
+        <item>Zaitoun</item>
+        <item>Ain Shams</item>
+        <item>Sheraton</item>
+        <item>Marg</item>
+        <item>Shoubra</item>
+        <item>Ain Shams</item>
+        <item>Helwan</item>
+        <item>Zamalik</item>
+        <item>Giza</item>
     </string-array>
 </resources>

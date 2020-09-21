@@ -92,7 +92,9 @@ public class LoginPage extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 progressDialog.dismiss();
-                                Toast.makeText(LoginPage.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(LoginPage.this, HomePage.class));
+                                finish();
+
                             } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(LoginPage.this, "Check your Email or Password", Toast.LENGTH_SHORT).show();
