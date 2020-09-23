@@ -85,7 +85,7 @@ public class RegisterPage extends AppCompatActivity {
     private void createUser() {
         final String username = username_et.getText().toString();
         final String email = email_et.getText().toString();
-        String phone = phone_et.getText().toString();
+        final String phone = phone_et.getText().toString();
         final String password = password_et.getText().toString();
         final String address = cities_spinner.getSelectedItem().toString();
         final String bloodGroup = bloodGroup_spinner.getSelectedItem().toString();
@@ -119,7 +119,7 @@ public class RegisterPage extends AppCompatActivity {
                     Toast.makeText(RegisterPage.this, "User registered successfully", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     String uid = task.getResult().getUser().getUid();
-                    userModel = new UserModel(uid, username, email, password, bloodGroup, address);
+                    userModel = new UserModel(uid, username, email, phone, bloodGroup, address);
                     saveDataInRealtimeDB(userModel, uid);
                     startActivity(new Intent(RegisterPage.this, LoginPage.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     finish();

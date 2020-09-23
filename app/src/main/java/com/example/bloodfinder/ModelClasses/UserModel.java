@@ -1,6 +1,8 @@
 package com.example.bloodfinder.ModelClasses;
 
-public class UserModel {
+import java.io.Serializable;
+
+public class UserModel implements Serializable {
     private String uid;
     private String username;
     private String email;
