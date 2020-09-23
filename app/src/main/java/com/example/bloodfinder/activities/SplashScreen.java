@@ -20,7 +20,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         YoYo.with(Techniques.FadeIn)
-                .duration(7000)
+                .duration(3000)
                 .playOn(findViewById(R.id.appLogo));
         Handler handler=new Handler();
         handler.postDelayed(new Runnable() {
@@ -30,6 +30,6 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
+        }, 3500);
     }
 }
